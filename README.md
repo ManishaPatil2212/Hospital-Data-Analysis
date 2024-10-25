@@ -66,10 +66,7 @@ Using Dax / Calculated Column to create some important measures that could be us
 ## Calculated a measure for %_patients that was not referred by any department
     var _filteredPatients = 
     CALCULATE([Total_Patients],
-   
-  'Hospital ER'[department_referral]="none")
-  
-  RETURN
-  DIVIDE(
-  
-      _filteredPatients,[Total_Patients])
+    'Hospital ER'[department_referral]="none")
+    RETURN
+    DIVIDE(
+    _filteredPatients,[Total_Patients])
