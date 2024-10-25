@@ -26,9 +26,10 @@ The data set contains records of patients' emergency room visits. The data conta
 Using Dax / Calculated Column to create some important measures that could be used as metrics in the visualization and also to give more perspective to the data
 
 ## % of patients that are admins
-  DIVIDE(
+  DIVIDE( 
+  
       COUNTROWS(
-          FILTER(
+       FILTER(
               'dataset',
               'dataset'[patient_admin_flag] = TRUE()
           )
@@ -37,16 +38,21 @@ Using Dax / Calculated Column to create some important measures that could be us
   )
 ## Total patient
   COUNTROWS([‘dataset’])
+  
 Average satisfactory score
+
   CALCULATE(
+  
     AVERAGE('dataset'[patient_sat_score]),'dataset'[patient_sat_score]<>BLANK())
 ## %_non_responders (PERCENTAGE OF PATIENT THAT DID NOT RESPOND TO THE SURVEY)
    VAR no_rating = 
+   
       CALCULATE([Total_Patients],'dataset'[patient_sat_score]=BLANK()
       RETURN
       DIVIDE(no_rating,[Total_Patients])
 ## Created a calculated column of different patient age bucket
   SWITCH(
+  
           TRUE(),
           'Hospital ER'[patient_age]<=10,"0-10",
           'Hospital ER'[patient_age]<=20,"11-20",
@@ -56,7 +62,9 @@ Average satisfactory score
           'Hospital ER'[patient_age]<=60,"51-60",
           'Hospital ER'[patient_age]<=70,"61-70",
 ## Created another column to depict whether the visit was a weekday or weekend
-  Addcolumn(calenderauto(),
+  Addcolumn
+  (calenderauto(),
+  
   			"YEAR",YEAR([Date]),
   "MONTH",FORMAT([Date],"mmm"),
   "MonthNum",MONTH([Date]),
@@ -65,9 +73,12 @@ Average satisfactory score
   )
 ## Calculated a measure for %_patients that was not referred by any department
    var _filteredPatients = 
+   
    CALCULATE([Total_Patients],
+   
   'Hospital ER'[department_referral]="none")
   
   RETURN
   DIVIDE(
+  
       _filteredPatients,[Total_Patients])
