@@ -26,34 +26,27 @@ The data set contains records of patients' emergency room visits. The data conta
 Using Dax / Calculated Column to create some important measures that could be used as metrics in the visualization and also to give more perspective to the data
 
 ## % of patients that are admins
-  DIVIDE( 
-  
-      COUNTROWS(
+    DIVIDE( 
+     COUNTROWS(
        FILTER(
               'dataset',
               'dataset'[patient_admin_flag] = TRUE()
           )
       ),
-      [Total_Patients]
-  )
+      [Total_Patients])
 ## Total patient
-  COUNTROWS([‘dataset’])
-  
-Average satisfactory score
-
-  CALCULATE(
-  
+    COUNTROWS([‘dataset’])
+    Average satisfactory score
+    CALCULATE(
     AVERAGE('dataset'[patient_sat_score]),'dataset'[patient_sat_score]<>BLANK())
 ## %_non_responders (PERCENTAGE OF PATIENT THAT DID NOT RESPOND TO THE SURVEY)
-   VAR no_rating = 
-   
-      CALCULATE([Total_Patients],'dataset'[patient_sat_score]=BLANK()
+     VAR no_rating = 
+     CALCULATE([Total_Patients],'dataset'[patient_sat_score]=BLANK()
       RETURN
       DIVIDE(no_rating,[Total_Patients])
 ## Created a calculated column of different patient age bucket
-  SWITCH(
-  
-          TRUE(),
+    SWITCH(
+    TRUE(),
           'Hospital ER'[patient_age]<=10,"0-10",
           'Hospital ER'[patient_age]<=20,"11-20",
           'Hospital ER'[patient_age]<=30,"21-30",
@@ -62,19 +55,17 @@ Average satisfactory score
           'Hospital ER'[patient_age]<=60,"51-60",
           'Hospital ER'[patient_age]<=70,"61-70",
 ## Created another column to depict whether the visit was a weekday or weekend
-  Addcolumn
-  (calenderauto(),
-  
-  			"YEAR",YEAR([Date]),
-  "MONTH",FORMAT([Date],"mmm"),
-  "MonthNum",MONTH([Date]),
-  "WeekType", IF(WEEKDAY([Date]) = 1, "Weekend", IF(WEEKDAY([Date])= 7, "Weekend", "WeekDay")),
-  "WeekDay",FORMAT([Date],"ddd")
-  )
+    Addcolumn
+    (calenderauto(),
+    "YEAR",YEAR([Date]),
+    "MONTH",FORMAT([Date],"mmm"),
+    "MonthNum",MONTH([Date]),
+    "WeekType", IF(WEEKDAY([Date]) = 1, "Weekend", IF(WEEKDAY([Date])= 7, "Weekend", "WeekDay")),
+    "WeekDay",FORMAT([Date],"ddd")
+    )
 ## Calculated a measure for %_patients that was not referred by any department
-   var _filteredPatients = 
-   
-   CALCULATE([Total_Patients],
+    var _filteredPatients = 
+    CALCULATE([Total_Patients],
    
   'Hospital ER'[department_referral]="none")
   
