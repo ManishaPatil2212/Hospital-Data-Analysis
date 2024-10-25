@@ -37,7 +37,7 @@ Using Dax / Calculated Column to create some important measures that could be us
       [Total_Patients])
 ## Total patient
     COUNTROWS([‘dataset’])
-    Average satisfactory score
+## Average satisfactory score
     CALCULATE(
     AVERAGE('dataset'[patient_sat_score]),'dataset'[patient_sat_score]<>BLANK())
 ## %_non_responders (PERCENTAGE OF PATIENT THAT DID NOT RESPOND TO THE SURVEY)
