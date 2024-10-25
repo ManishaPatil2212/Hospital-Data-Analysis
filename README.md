@@ -1,4 +1,5 @@
 # Patients Emergency Room Visit Report
+![Screenshot 2024-10-25 123521](https://github.com/user-attachments/assets/2596dbc5-66a9-42aa-9e80-909ecf82579b)
 ## Project-Overview
 
 This report evaluates the quality of service provided to patients during their visits to the emergency department. The data collection methodology that was used was patient satisfaction surveys.
